@@ -3,18 +3,17 @@ def intervalIntersection(self, firstList: List[List[int]], secondList: List[List
     res = []
 
     while f < len(firstList) and s < len(secondList):
+        f_start, s_start = firstList[f][0], secondList[s][0]
+        f_end, s_end = firstList[f][1], secondList[s][1]
 
         # detect overlap
-        if firstList[f][0] <= secondList[s][1] and secondList[s][0] <= firstList[f][1]:
-            res += [[max(firstList[f][0], secondList[s][0]),
-                     min(firstList[f][1], secondList[s][1])]]
+        if f_start <= s_end and s_start <= f_end:
+            res += [[max(f_start, s_start), min(f_end, s_end)]]
 
         # increment the pointer(s)
-        if firstList[f][1] < secondList[s][1]:
+        if f_end < s_end:
             f += 1
-        elif firstList[f][1] > secondList[s][1]:
-            s += 1
         else:
-            s, f = s + 1, f + 1
+            s += 1
 
     return res
