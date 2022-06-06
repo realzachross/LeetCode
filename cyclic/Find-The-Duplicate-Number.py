@@ -1,4 +1,4 @@
-def findDuplicate(self, nums: List[int]) -> int:
+def findDuplicateCyclicSort(self, nums: List[int]) -> int:
     i = 0
 
     # cyclically sort list
@@ -14,3 +14,21 @@ def findDuplicate(self, nums: List[int]) -> int:
             i += 1
 
     return None
+
+
+def findDuplicateCycleDetect(self, nums: List[int]) -> int:
+    fast = slow = 0
+    # detect cycle
+    while True:
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+        if fast == slow:
+            break
+
+    # cycle start is equidistant from head of graph and meeting node
+    slow = 0
+    while fast != slow:
+        fast = nums[fast]
+        slow = nums[slow]
+
+    return fast
