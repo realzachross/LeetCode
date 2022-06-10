@@ -4,6 +4,31 @@ class ListNode(object):
         self.next = next
 
 
+class SolutionRecursive(object):
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        def helper(head, k):
+            lead = head
+            for i in range(k - 1):
+                if lead and lead.next:
+                    lead = lead.next
+                else:
+                    return head
+            prev, cur = helper(lead.next, k), head
+            for i in range(k):
+                temp = cur.next
+                cur.next = prev
+                prev = cur
+                cur = temp
+            return prev
+
+        return helper(head, k) if k > 1 else head
+
+
 class Solution(object):
     def reverseKGroup(self, head, k):
         """
